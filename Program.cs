@@ -1,27 +1,39 @@
-var builder = WebApplication.CreateBuilder(args);
+using POApp.Db;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
-// Add services to the container.
-
-builder.Services.AddControllersWithViews();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+namespace POApp
 {
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            //CreateHostBuilder(args).Build().Run();
+
+            // 1. Get the IHost which will host this application
+            var host = CreateHostBuilder(args).Build();
+
+            // 2. Find the service within the scope to use
+            using (var scope = host.Services.CreateScope())
+            {
+                // 3. Get the instance of HRMContext in our service layer
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<POAPPContext>();
+
+                // 4. Call the SeedDataGenerator to generate seed data
+               // SeedDataGenerator.Initialize(services);  
+            }
+
+            // Run the application 
+            host.Run();
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
+    }
 }
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseRouting();
-
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
-
-app.MapFallbackToFile("index.html");
-
-app.Run();
