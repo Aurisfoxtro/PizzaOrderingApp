@@ -1,9 +1,13 @@
-namespace POApp;
+using System;
+using System.Drawing;
 
-public class Pizza
+namespace POApp.Models
 {
-    public int Id { get; set;}
-    public string Size { get; set;}
-    public string[] Ingredients { get; set;}
-    public float Price { get; set;}
+    public class Pizza
+    {
+        public int Id { get; set;}
+        public string Size { get; set;}
+        public string[] Ingredients { get; set;}
+        public float Price { get; set;}
+    }
 }

@@ -9,11 +9,11 @@ using POApp;
 
 namespace POApp.Repository
 {
-    public class EmployeeRepository : IPizzaRepository
+    public class PizzaRepository : IPizzaRepository
     {
         private readonly POAPPContext _context;
 
-        public EmployeeRepository(POAPPContext context)
+        public PizzaRepository(POAPPContext context)
         {
             _context = context;
         }
