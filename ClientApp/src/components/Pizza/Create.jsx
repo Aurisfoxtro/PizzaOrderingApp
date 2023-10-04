@@ -65,7 +65,7 @@ export class Create extends Component{
             size: this.state.size,
             ingredients: this.state.ingredients
         }
-        console.log(pizzaObj);
+        //console.log(pizzaObj);
 
         axios.post("api/Pizzas/AddPizza", pizzaObj).then(result => {
             history.push('/pizzas');
