@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import AppRoutes from './AppRoutes';
+import { Route } from 'react-router';
 import { Layout } from './components/Layout';
-import './custom.css';
+import { Home } from './components/Home';
+
+//import './custom.css'
+
+import {Pizzas} from './components/Pizza/Pizzas';
+import { Create } from './components/Pizza/Create';
+
 
 export default class App extends Component {
   static displayName = App.name;
 
-  render() {
+  render () {
     return (
       <Layout>
-        <Routes>
-          {AppRoutes.map((route, index) => {
-            const { element, ...rest } = route;
-            return <Route key={index} {...rest} element={element} />;
-          })}
-        </Routes>
+        <Route exact path='/' component={Home} />
+        <Route path='/pizzas' component={Pizzas} />
+        <Route path='/create' component = {Create}></Route>
       </Layout>
     );
   }
