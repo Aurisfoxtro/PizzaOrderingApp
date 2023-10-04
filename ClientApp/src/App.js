@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
+import { Route, Routes } from 'react-router';
 import { Layout } from './components/Layout.js';
 import { Home } from './components/Home.js';
 
@@ -15,9 +15,11 @@ export default class App extends Component {
   render () {
     return (
       <Layout>
-        <Route exact path='/' component={Home}></Route>
-        <Route path='/pizzas' component={Pizzas}></Route>
-        <Route path='/create' component = {Create}></Route>
+        <Routes>
+            <Route path='/' element={<Home/>}></Route>
+            <Route path='/pizzas' element={<Pizzas/>}></Route>
+            <Route path='/create' element={<Create/>}></Route>
+        </Routes>
       </Layout>
     );
   }

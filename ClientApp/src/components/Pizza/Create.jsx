@@ -6,6 +6,8 @@ export class Create extends Component{
     constructor(props){
         super(props);
 
+        this.onPizzaCreate = this.onPizzaCreate.bind(this);
+
         this.onChangeId = this.onChangeId.bind(this);
         this.onChangeSize = this.onChangeSize.bind(this);
         this.onChangeIngredients = this.onChangeIngredients.bind(this);
@@ -27,20 +29,35 @@ export class Create extends Component{
     }
 
     onChangeSize(e){
+        //console.log(e.target);
+        //console.log("------------");
+        //console.log(e.target.value);
         this.setState({
             size: e.target.value
         })
     }
 
     onChangeIngredients(e){
+
+        var options = document.getElementById('ingredients').selectedOptions;
+        var values = Array.from(options).map(({ value }) => value);
+        //console.log(values);
+
         this.setState({
-            ingredients: e.target.value
+            ingredients: values
         })
 
     }
-
+    
+   onPizzaCreate()
+    {
+        const {history} = this.props;
+        history.push('/create');
+    }
+    
     onSubmit(e){
         e.preventDefault();
+
         const {history} = this.props;
 
         let pizzaObj = {
@@ -48,6 +65,7 @@ export class Create extends Component{
             size: this.state.size,
             ingredients: this.state.ingredients
         }
+        console.log(pizzaObj);
 
         axios.post("api/Pizzas/AddPizza", pizzaObj).then(result => {
             history.push('/pizzas');
@@ -57,19 +75,19 @@ export class Create extends Component{
     render(){
         return(
             <div>
-            <form action="">
+            <form onSubmit={this.onSubmit}>
               <p>Id:</p>
-              <input type="text" id="id" name="id"></input><br></br>
+              <input type="text" id="id" name="id" value={this.state.id} onChange={this.onChangeId}></input><br></br>
               <p>Pasirinkite picos dydį:</p>
-              <input type="radio" id="maža" name="picos_dydis" value="Maža"></input>
+              <input type="radio" id="maža" name="picos_dydis" value="Maža" onChange={this.onChangeSize}></input>
               <label for="maža">Maža</label><br></br>
-              <input type="radio" id="vidutinė" name="picos_dydis" value="Vidutinė"></input>
+              <input type="radio" id="vidutinė" name="picos_dydis" value="Vidutinė" onChange={this.onChangeSize}></input>
               <label for="vidutinė">Vidutinė</label><br></br>
-              <input type="radio" id="didelė" name="picos_dydis" value="Didelė"></input>
+              <input type="radio" id="didelė" name="picos_dydis" value="Didelė" onChange={this.onChangeSize}></input>
               <label for="didelė">Didelė</label><br></br>
               <label for="ingredients">Pasirinkite picos ingredientus:</label>
               <br></br>
-              <select name="ingredients" id="ingredients" multiple>
+              <select name="ingredients" id="ingredients" multiple onChange={this.onChangeIngredients}>
                 <option value="jautiena">Jautiena</option>
                 <option value="saliamis">Saliamis</option>
                 <option value="vištiena">Vištiena</option>
@@ -89,8 +107,9 @@ export class Create extends Component{
                 <option value="paprika">Paprika</option>
               </select>
               <br></br>
-              <input type="submit" value="Užsakyti"></input>
-              </form>     
+              <input type="submit" value="Užsakyti" class="btn btn-primary"></input>
+              </form>
+                 
           </div>
         )
     }

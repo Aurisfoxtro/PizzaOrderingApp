@@ -6,7 +6,7 @@ export class Pizzas extends Component
     constructor(props){
         super(props);
 
-        this.onPizzaCreate = this.onPizzaCreate.bind(this);
+      //  this.onPizzaCreate = this.onPizzaCreate.bind(this);
 
         this.state = {
             pizzas: [],
@@ -16,15 +16,8 @@ export class Pizzas extends Component
         }
     }
 
-
     componentDidMount(){
         this.populatePizzasData();
-    }
-
-    onEmployeeCreate()
-    {
-        const {history} = this.props;
-        history.push('/create');
     }
 
     populatePizzasData(){
@@ -75,9 +68,7 @@ export class Pizzas extends Component
 
         return(
             <div>
-                <h2>Pica</h2>
-                <button onClick={()=> this.onPizzaCreate()} className="btn btn-primary">Užsakyti</button>
-                {content}
+                {content}  
             </div>
         );
     }
