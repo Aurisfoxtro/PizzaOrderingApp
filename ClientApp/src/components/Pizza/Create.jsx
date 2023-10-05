@@ -107,7 +107,7 @@ export class Create extends Component{
                 <option value="paprika">Paprika</option>
               </select>
               <br></br>
-              <input type="submit" value="Užsakyti" class="btn btn-primary"></input>
+              <input type="submit" value="Užsakyti" className="btn btn-primary"></input>
               </form>
                  
           </div>
